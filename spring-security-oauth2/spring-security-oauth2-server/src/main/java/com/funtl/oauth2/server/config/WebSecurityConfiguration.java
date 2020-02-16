@@ -21,26 +21,26 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         return new BCryptPasswordEncoder();
     }
 	
-	//认证：提供账号密码
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		PasswordEncoderFactories.createDelegatingPasswordEncoder();
-		
-		auth.inMemoryAuthentication()
-		.withUser("admin").password(passwordEncoder().encode("123456")).roles("ADMIN")
-		.and()
-		.withUser("user").password(passwordEncoder().encode("123456")).roles("找");
-		
-	}
-	
+	//认证：提供账号密码 加密后的会报错
 //	@Override
 //	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//		PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//		
 //		auth.inMemoryAuthentication()
-//		.withUser("admin").password("123456").roles("ADMIN")
+//		.withUser("admin").password(passwordEncoder().encode("123456")).roles("ADMIN")
 //		.and()
-//		.withUser("user").password("123456").roles("找");
+//		.withUser("user").password(passwordEncoder().encode("123456")).roles("找");
 //		
 //	}
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication()
+		.withUser("admin").password("123456").roles("ADMIN")
+		.and()
+		.withUser("user").password("123456").roles("找");
+		
+	}
 	
 	@Bean
     @Override
